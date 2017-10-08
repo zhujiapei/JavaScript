@@ -61,7 +61,7 @@ var e = document.createElement('div'); //分配一个DOM元素`
 
 有些方法分配新变量或者新对象：
 
-`var s = "azerty";
+var s = "azerty";
 
 var s2 = s.substr(0, 3); // s2 is a new string
 
@@ -181,11 +181,12 @@ div.onclick = function(){
 // 这个循环引用会导致两个对象都不会被垃圾回收
 ```
 - **内存泄露**
+
 当前主流浏览器的垃圾回收均采用标记清除方式来进行管理，但有一个非常特殊并且我们不得不面对的就是IE浏览器的对象并不全是原生的 Javascript对象，其BOM和DOM对象是使用C++以COM对象的形式实现的，这部分对象的内存管理相对于Javascript原生对象是独立 的。问题的出现正是因为COM对象的内存回收是采用引用计数策略而非标记清除方式。
 
 如果我们定义的Javascript对象与DOM或BOM对象之间形成循环引用，在IE下则会发生内存不能被正确回收的问题，这也是最常见的IE内存泄漏。如下面的例子：
 
-`
+```
 var elem = document.getElementById('elemId');
 
 var o = new Object();
@@ -193,17 +194,17 @@ var o = new Object();
 o.prop = elem;
 
 elem.attr = o;
-`
+```
 
 上面的代码中，DOM对象elem与Javascript对象o之间产生了循环引用，即使将elem从页面中移除（removeChild或者replaceChild），其所占用的内存也不会被回收。
 
 解决办法就是，在不使用这些变量时手工解除Javascript对象和DOM对象的引用，比如：
 
-`
+```
 o.prop = null;
 
 elem.attr = null;
-`
+```
 
 ### 标记-清除算法
 
