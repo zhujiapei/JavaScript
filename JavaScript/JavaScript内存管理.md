@@ -20,7 +20,8 @@
 
 为了不让程序员为分配费心，JavaScript在定义变量时完成内存分配。
 
-`var n = 123; // 给数值变量分配内存
+```
+<var n = 123; // 给数值变量分配内存
 
 var s = "azerty"; // 给字符型 
 
@@ -46,13 +47,15 @@ someElement.addEventListener('click', function(){
 
   someElement.style.backgroundColor = 'blue';
   
-}, false);`
+}, false);/>
+```
 
 - **通过函数调用的内存分配**
 
 有些函数调用结果是分配对象内存：
 
-`var d = new Date();
+```
+<var d = new Date();
 
 var e = document.createElement('div'); //分配一个DOM元素`
 
@@ -68,7 +71,8 @@ var a = ["ouais ouais", "nan nan"];
 
 var a2 = ["generation", "nan nan"];
 
-var a3 = a.concat(a2); // 新数组中有连接数组a和数组a2中的四个元素。`
+var a3 = a.concat(a2); // 新数组中有连接数组a和数组a2中的四个元素。/>
+```
 
 ### 值的使用
 
@@ -95,7 +99,8 @@ var a3 = a.concat(a2); // 新数组中有连接数组a和数组a2中的四个元
 
 - **例如**
 
-`var o = {
+```
+<var o = {
 
   a: {
   
@@ -125,13 +130,15 @@ o2 = "yo"; // 最初的对象现在已经是零引用了
 
 oa = null; // a属性的那个对象现在也是零引用了
 
-// 它可以被垃圾回收了`
+// 它可以被垃圾回收了/>
+```
 
 - **限制：循环引用**
 
 这个简单的算法有一个限制，就是如果一个对象引用另一个（形成了循环引用），他们可能“不再需要”了，但是他们不会被回收。
 
-`function f(){
+```
+<function f(){
 
   var o = {};
   
@@ -152,13 +159,15 @@ f();
 
 // 所以他们已经没有用了，可以被回收了
 
-// 然而，引用计数算法考虑到他们互相都有至少一次引用，所以他们不会被回收`
+// 然而，引用计数算法考虑到他们互相都有至少一次引用，所以他们不会被回收/>
+```
 
 - **实际当中的例子**
 
 IE 6, 7 对DOM对象进行引用计数回收。对他们来说，一个常见问题就是内存泄露：
 
-`var div = document.createElement("div");
+```
+<var div = document.createElement("div");
 
 div.onclick = function(){
 
@@ -169,7 +178,8 @@ div.onclick = function(){
 
 // 事件处理也有一个对div的引用可以在函数作用域中被访问到
 
-// 这个循环引用会导致两个对象都不会被垃圾回收`
+// 这个循环引用会导致两个对象都不会被垃圾回收/>
+```
 
 ### 标记-清除算法
 
