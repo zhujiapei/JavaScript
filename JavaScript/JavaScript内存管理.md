@@ -20,7 +20,7 @@
 
 为了不让程序员为分配费心，JavaScript在定义变量时完成内存分配。
 
-'var n = 123; // 给数值变量分配内存
+`var n = 123; // 给数值变量分配内存
 
 var s = "azerty"; // 给字符型 
 
@@ -39,25 +39,26 @@ function f(a){
   return a + 2;
   
 } // 为函数（可调用的对象）分配内存
+
 // 函数表达式也能分配一个对象
 
 someElement.addEventListener('click', function(){
 
   someElement.style.backgroundColor = 'blue';
   
-}, false);'
+}, false);`
 
 - **通过函数调用的内存分配**
 
 有些函数调用结果是分配对象内存：
 
-'var d = new Date();
+`var d = new Date();
 
-var e = document.createElement('div'); //分配一个DOM元素'
+var e = document.createElement('div'); //分配一个DOM元素`
 
 有些方法分配新变量或者新对象：
 
-'var s = "azerty";
+`var s = "azerty";
 
 var s2 = s.substr(0, 3); // s2 is a new string
 
@@ -67,7 +68,7 @@ var a = ["ouais ouais", "nan nan"];
 
 var a2 = ["generation", "nan nan"];
 
-var a3 = a.concat(a2); // 新数组中有连接数组a和数组a2中的四个元素。'
+var a3 = a.concat(a2); // 新数组中有连接数组a和数组a2中的四个元素。`
 
 ### 值的使用
 
@@ -94,7 +95,7 @@ var a3 = a.concat(a2); // 新数组中有连接数组a和数组a2中的四个元
 
 - **例如**
 
-'var o = {
+`var o = {
 
   a: {
   
@@ -105,6 +106,7 @@ var a3 = a.concat(a2); // 新数组中有连接数组a和数组a2中的四个元
 }; 
 
 // 两个对象被创建，一个做为另一个的属性被引用，另一个被分配给变量o
+
 // 很显然，没有一个可以被垃圾收集
 
 var o2 = o; // o2变量是第二个对“这个对象”的引用
@@ -112,20 +114,24 @@ var o2 = o; // o2变量是第二个对“这个对象”的引用
 o = 1; // 现在，“这个对象”的原始引用o被o2替换了
 
 var oa = o2.a; // 引用“这个对象”的a属性
+
 // 现在，“这个对象”有两个引用了，一个是o2，一个是oa
 
 o2 = "yo"; // 最初的对象现在已经是零引用了
+
 // 他可以被垃圾回收了
+
 // 然而它的属性a的对象还在被oa引用，所以还不能回收
 
 oa = null; // a属性的那个对象现在也是零引用了
-// 它可以被垃圾回收了'
+
+// 它可以被垃圾回收了`
 
 - **限制：循环引用**
 
 这个简单的算法有一个限制，就是如果一个对象引用另一个（形成了循环引用），他们可能“不再需要”了，但是他们不会被回收。
 
-'function f(){
+`function f(){
 
   var o = {};
   
@@ -141,15 +147,18 @@ oa = null; // a属性的那个对象现在也是零引用了
 
 f();
 // 两个对象被创建，并互相引用，形成了一个循环
+
 // 他们被调用之后不会离开函数作用域
+
 // 所以他们已经没有用了，可以被回收了
-// 然而，引用计数算法考虑到他们互相都有至少一次引用，所以他们不会被回收'
+
+// 然而，引用计数算法考虑到他们互相都有至少一次引用，所以他们不会被回收`
 
 - **实际当中的例子**
 
 IE 6, 7 对DOM对象进行引用计数回收。对他们来说，一个常见问题就是内存泄露：
 
-'var div = document.createElement("div");
+`var div = document.createElement("div");
 
 div.onclick = function(){
 
@@ -157,8 +166,10 @@ div.onclick = function(){
   
 }; 
 // div有了一个引用指向事件处理属性onclick
+
 // 事件处理也有一个对div的引用可以在函数作用域中被访问到
-// 这个循环引用会导致两个对象都不会被垃圾回收'
+
+// 这个循环引用会导致两个对象都不会被垃圾回收`
 
 ### 标记-清除算法
 
